@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import ChatPage from '../components/ChatPage/ChatPage';
 
-const IndexPage = () => (
+const Index = () => (
   <>
-    <div>next.js</div>
+    <ChatPage />
   </>
 );
 
-export default IndexPage;
+export default Index;

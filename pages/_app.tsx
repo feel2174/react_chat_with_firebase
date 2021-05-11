@@ -1,12 +1,18 @@
-import React from "react";
+import React from 'react';
 
-import Head from "next/head";
-import { AppProps } from "next/app";
+import Head from 'next/head';
+import { AppProps } from 'next/app';
 
-import { QueryClient, QueryClientProvider } from "react-query";
-import { ReactQueryDevtools } from "react-query/devtools";
+import { Provider } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import promiseMiddleware from 'redux-promise';
+import ReduxThunk from 'redux-thunk';
+import Reducer from '../redux/reducers';
 
-const queryClient = new QueryClient();
+const createStoreWithMiddleware = applyMiddleware(
+  promiseMiddleware,
+  ReduxThunk,
+)(createStore);
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -17,10 +23,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
         />
       </Head>
-      <QueryClientProvider client={queryClient}>
+      <Provider store={createStoreWithMiddleware(Reducer)}>
         <Component {...pageProps} />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+      </Provider>
     </>
   );
 };
