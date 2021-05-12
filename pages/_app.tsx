@@ -3,16 +3,9 @@ import React from 'react';
 import Head from 'next/head';
 import { AppProps } from 'next/app';
 
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
-import promiseMiddleware from 'redux-promise';
-import ReduxThunk from 'redux-thunk';
-import Reducer from '../redux/reducers';
-
-const createStoreWithMiddleware = applyMiddleware(
-  promiseMiddleware,
-  ReduxThunk,
-)(createStore);
+import 'bootstrap/dist/css/bootstrap.min.css';
+import '../styles/index.css';
+import wrapper from '../redux/wrapper';
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
@@ -23,11 +16,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no"
         />
       </Head>
-      <Provider store={createStoreWithMiddleware(Reducer)}>
-        <Component {...pageProps} />
-      </Provider>
+      <Component {...pageProps} />
     </>
   );
 };
 
-export default MyApp;
+export default wrapper.withRedux(MyApp);
