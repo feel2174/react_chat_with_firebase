@@ -9,6 +9,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
+    "@types/redux-logger": "^3.0.8",
     "bootstrap": "^5.0.0",
     "firebase": "^8.5.0",
     "md5": "^2.3.0",

@@ -15,7 +15,7 @@ const RegisterPage = () => {
   const [errorSubmit, setErrorSubmit] = useState('');
   const [loading, setLoading] = useState(false);
 
-  const onSubmit = async (data) => {
+  const onSubmit = async (data: any) => {
     try {
       const createdUser = await firebase
         .auth()
@@ -24,9 +24,7 @@ const RegisterPage = () => {
 
       await createdUser.user?.updateProfile({
         displayName: data.name,
-        photoURL: `http://gravatar.com/avatar/${md5(
-          createdUser.user.email,
-        )}?d=identicon`,
+        photoURL: `http://gravatar.com/avatar/${md5(data.email)}?d=identicon`,
       });
 
       setLoading(false);
