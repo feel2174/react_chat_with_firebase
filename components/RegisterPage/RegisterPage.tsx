@@ -3,6 +3,7 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { useRef, useState } from 'react';
 import firebase from '../../firebase';
+
 import md5 from 'md5';
 
 const RegisterPage = () => {
