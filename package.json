@@ -5,22 +5,39 @@
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "type-check": "tsc"
+    "type-check": "tsc",
+    "prepare": "husky install"
   },
   "dependencies": {
-    "next": "latest",
+    "@types/redux-logger": "^3.0.8",
+    "bootstrap": "^5.0.0",
+    "firebase": "^8.5.0",
+    "md5": "^2.3.0",
+    "next": "10.2.0",
+    "next-redux-wrapper": "^6.0.2",
     "react": "^17.0.1",
+    "react-bootstrap": "^1.6.0",
     "react-dom": "^17.0.1",
+    "react-hook-form": "^7.5.2",
+    "react-icons": "^4.2.0",
     "react-query": "^3.13.4",
+    "react-redux": "^7.2.4",
     "react-slick": "^0.28.1",
+    "redux": "^4.1.0",
+    "redux-devtools-extension": "^2.13.9",
+    "redux-logger": "^3.0.6",
+    "redux-promise": "^0.6.0",
+    "redux-thunk": "^2.3.0",
     "slick-carousel": "^1.8.1",
     "styled-components": "^5.2.3"
   },
   "devDependencies": {
+    "@types/md5": "^2.3.0",
     "@types/node": "^12.20.6",
     "@types/react": "^17.0.3",
     "@types/react-dom": "^17.0.3",
     "@types/react-slick": "^0.23.4",
+    "@types/redux-promise": "^0.5.29",
     "@types/styled-components": "^5.1.9",
     "@typescript-eslint/eslint-plugin": "^4.23.0",
     "@typescript-eslint/parser": "^4.23.0",
@@ -37,6 +54,5 @@
     "**/*.{js,jsx,ts,tsx}": [
       "eslint --fix"
     ]
-  },
-  "license": "MIT"
+  }
 }
