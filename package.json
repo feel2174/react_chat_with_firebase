@@ -1,5 +1,5 @@
 {
-  "name": "with-typescript",
+  "name": "react_chat_with_firebase",
   "version": "1.0.0",
   "scripts": {
     "dev": "next",
@@ -54,5 +54,6 @@
     "**/*.{js,jsx,ts,tsx}": [
       "eslint --fix"
     ]
-  }
+  },
+  "license": "MIT"
 }
