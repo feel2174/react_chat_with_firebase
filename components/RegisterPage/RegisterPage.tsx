@@ -1,10 +1,14 @@
 import { useForm } from 'react-hook-form';
 import Link from 'next/link';
 import styled from 'styled-components';
-import { useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import firebase from '../../firebase';
 
 import md5 from 'md5';
+import Router from 'next/router';
+
+import { useDispatch } from 'react-redux';
+import { setUser } from '../../redux/actions/user_action';
 
 const RegisterPage = () => {
   const {
@@ -15,6 +19,18 @@ const RegisterPage = () => {
   } = useForm();
   const [errorSubmit, setErrorSubmit] = useState('');
   const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
+  useEffect(() => {
+    firebase.auth().onAuthStateChanged((user) => {
+      console.log('user', user);
+      if (user) {
+        Router.push('/');
+        dispatch(setUser(user));
+      } else {
+      }
+    });
+  }, [firebase.auth()]);
 
   const onSubmit = async (data: any) => {
     try {
@@ -29,7 +45,7 @@ const RegisterPage = () => {
       });
 
       //Firebase 데이터베이스로 저장
-      await firebase.database().ref('users').child(createdUser.user.uid).set({
+      await firebase.database().ref('users').child(createdUser.user!.uid).set({
         name: createdUser.user?.displayName,
         image: createdUser.user?.photoURL,
       });
