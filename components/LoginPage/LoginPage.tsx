@@ -1,11 +1,8 @@
 import { useForm } from 'react-hook-form';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import firebase from '../../firebase';
 import styled from 'styled-components';
 import Link from 'next/link';
-import { useDispatch } from 'react-redux';
-import Router from 'next/router';
-import { setUser } from '../../redux/actions/user_action';
 
 const LoginPage = () => {
   const {
@@ -15,17 +12,6 @@ const LoginPage = () => {
   } = useForm();
   const [errorSubmit, setErrorSubmit] = useState('');
   const [loading, setLoading] = useState(false);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    firebase.auth().onAuthStateChanged((user) => {
-      console.log('user', user);
-      if (user) {
-        Router.push('/');
-        dispatch(setUser(user));
-      } else {
-      }
-    });
-  }, [firebase.auth()]);
 
   const onSubmit = async (data: any) => {
     try {
