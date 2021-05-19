@@ -3,7 +3,7 @@ import React from 'react';
 const DirectMessage = () => {
   return (
     <>
-      <div>DirectMessage</div>
+      <div style={{ marginTop: '10px' }}>DirectMessage</div>
     </>
   );
 };
