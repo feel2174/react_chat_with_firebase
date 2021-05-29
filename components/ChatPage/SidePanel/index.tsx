@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import ChatRoom from './ChatRooms';
+import ChatRoom from './ChatRoom';
 import DirectMessage from './DirectMessages';
 import Favorites from './Favorites';
 import UserPanel from './UserPanel';
