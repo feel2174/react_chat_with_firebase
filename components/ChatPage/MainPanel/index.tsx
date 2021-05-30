@@ -22,7 +22,7 @@ export default MainPanel;
 const PanelContainer = styled.div`
   width: 100%;
   height: 450px;
-  border: 0.2rem solid #ececec;
+  border: 0.1rem solid #ececec;
   border-radius: 4px;
   padding: 1rem;
   margin-bottom: 1rem;

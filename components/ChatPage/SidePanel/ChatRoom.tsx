@@ -16,16 +16,33 @@ class ChatRoom extends Component {
     description: '',
     chatRoomsRef: firebase.database().ref('chatRooms'),
     chatRooms: [],
+    firstLoad: true,
+    activeChatRoomId: '',
   };
   componentDidMount() {
     this.AddChatRoomsListener();
   }
+  componentWillUnMount() {
+    this.state.chatRoomsRef.off();
+  }
+
   AddChatRoomsListener = () => {
     const chatRoomsArray: [] = [];
     this.state.chatRoomsRef.on('child_added', (DataSnapshot) => {
       chatRoomsArray.push(DataSnapshot.val());
-      this.setState({ chatRooms: chatRoomsArray });
+      this.setState({ chatRooms: chatRoomsArray }, () =>
+        this.setFirstChatRoom(),
+      );
     });
+  };
+
+  setFirstChatRoom = () => {
+    const firstChatRoom = this.state.chatRooms[0];
+    if (this.state.firstLoad && this.state.chatRooms.length > 0) {
+      this.props.dispatch(setCurrentChatRoom(firstChatRoom));
+      this.setState({ activeChatRoomId: firstChatRoom.id });
+    }
+    this.setState({ firstLoad: false });
   };
 
   handleClose = () => this.setState({ show: false });
@@ -58,8 +75,9 @@ class ChatRoom extends Component {
     }
   };
 
-  changeChatRoom = (room) => {
-    this.props.dispatch(setCurrentChatRoom(room));
+  changeChatRoom = (chatRoom) => {
+    this.props.dispatch(setCurrentChatRoom(chatRoom));
+    this.setState({ activeChatRoomId: chatRoom.id });
   };
 
   isFormValid = (name: string, description: string) => name && description;
@@ -78,7 +96,14 @@ class ChatRoom extends Component {
         <ul style={{ listStyleType: 'none', padding: 0 }}>
           {this.state.chatRooms.length > 0 &&
             this.state.chatRooms.map((room: any) => (
-              <li key={room.id} onClick={() => this.changeChatRoom(room)}>
+              <li
+                style={{
+                  backgroundColor:
+                    room.id === this.state.activeChatRoomId && '#ffffff45',
+                }}
+                key={room.id}
+                onClick={() => this.changeChatRoom(room)}
+              >
                 # {room.name}
               </li>
             ))}
@@ -127,6 +152,7 @@ class ChatRoom extends Component {
 const mapStateToProps = (state: any) => {
   return {
     user: state.user.currentUser,
+    chatRoom: state.chatRoom.currentChatRoom,
   };
 };
 export default connect(mapStateToProps)(ChatRoom);
