@@ -3,7 +3,6 @@ import Link from 'next/link';
 import styled from 'styled-components';
 import { useRef, useState } from 'react';
 import firebase from '../../firebase';
-
 import md5 from 'md5';
 
 const RegisterPage = () => {
@@ -26,6 +25,12 @@ const RegisterPage = () => {
       await createdUser.user?.updateProfile({
         displayName: data.name,
         photoURL: `http://gravatar.com/avatar/${md5(data.email)}?d=identicon`,
+      });
+
+      //Firebase 데이터베이스로 저장
+      await firebase.database().ref('users').child(createdUser.user!.uid).set({
+        name: createdUser.user?.displayName,
+        image: createdUser.user?.photoURL,
       });
 
       setLoading(false);
